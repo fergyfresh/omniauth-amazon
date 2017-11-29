@@ -19,25 +19,34 @@ Or install it yourself as:
 
 ## Prereqs
 
-You must create an application via the [Amazon App Console](https://login.amazon.com/manageApps). Once that is complete, register two URLs under <i>Web Settings -> Allowed Return URLs</i>:
+You must create an application via the [Amazon Developer Console](https://sellercentral.amazon.com). Once that is complete, register two URLs under <i>Web Settings ->  Allowed JavaScript Origins and Allowed Return URLs</i>:
 
-    http://localhost:3000/auth/amazon/callback
-    https://your_website_here/auth/amazon/callback
+Allowed JavaScript Origins:
+
+    http://localhost:3000
+    https://your_website_here
+
+Allowed Return URLs:
+
+    http://localhost:3000/users/auth/amazon/callback
+    https://your_website_here/users/auth/amazon/callback
 
 Amazon requires HTTPS for the whitelisted callback URL (except localhost). They don't appear to
 like ```.dev``` domains too much but happily accept localhost.
 
 ## Usage
 
-Usage is similar to other OAuth2 based OmniAuth strategies:
+I used Heroku, but you can use anything for production, just point the callback URL correctly back to your server.
+Usage is similar to other OAuth2 based OmniAuth strategies with devise:
 
 ```ruby
-Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :amazon, ENV['AMAZON_CLIENT_ID'], ENV['AMAZON_CLIENT_SECRET'],
-    {
-      :scope => 'profile postal_code' # default scope
-    }
-end
+  if Rails.env.production?
+    config.omniauth :amazon, ENV['AMAZON_CLIENT_ID'], ENV['AMAZON_CLIENT_SECRET'], 
+                    callback_url: "https://your_website_here/users/auth/amazon/callback"
+  else
+    config.omniauth :amazon, ENV['AMAZON_CLIENT_ID'], ENV['AMAZON_CLIENT_SECRET'], 
+                    callback_url: "http://localhost:3000/users/auth/amazon/callback"
+  end
 ```
 
 ## Configuration
