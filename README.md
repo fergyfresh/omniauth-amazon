@@ -133,7 +133,7 @@ end
 
 5. Add a button to the login page, with devise you add it to the `views/devise/shared/_links.html.erb` file
 ```ruby
-<%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(resource_name, provider) %>
+<%= link_to "Sign in with #{OmniAuth::Utils.camelize(provider)}", omniauth_authorize_path(provider) %>
 ```
 ## Configuration
 
