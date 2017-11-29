@@ -22,12 +22,10 @@ Or install it yourself as:
 You must create an application via the [Amazon Developer Console](https://sellercentral.amazon.com). Once that is complete, register two URLs under <i>Web Settings ->  Allowed JavaScript Origins and Allowed Return URLs</i>:
 
 Allowed JavaScript Origins:
-
     http://localhost:3000
     https://your_website_here
 
 Allowed Return URLs:
-
     http://localhost:3000/users/auth/amazon/callback
     https://your_website_here/users/auth/amazon/callback
 
